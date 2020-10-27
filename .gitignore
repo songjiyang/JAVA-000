@@ -2,6 +2,5 @@
 out
 Week_*/test
 lib
-pom.xml
 **/*.iml
 **/target

@@ -4,14 +4,17 @@ package io.github.gateway.upstream.httpclient4;
 import io.github.gateway.upstream.UpstreamHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.impl.nio.reactor.IOReactorConfig;
 import org.apache.http.protocol.HTTP;
 
+import java.util.Map;
 import java.util.concurrent.*;
 
 /**
@@ -48,13 +51,21 @@ public class HttpUpstreamHandler extends UpstreamHandler {
 
     @Override
     public void handle(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx) {
-        final String url = this.backendUrl + fullRequest.uri();
+        final String url = this.route() + fullRequest.uri();
         proxyService.submit(() -> fetchGet(fullRequest, ctx, url));
     }
 
     private void fetchGet(final FullHttpRequest inbound, final ChannelHandlerContext ctx, final String url) {
         final HttpGet httpGet = new HttpGet(url);
         httpGet.setHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_KEEP_ALIVE);
+
+        HttpHeaders headers = inbound.headers();
+        for (Map.Entry<String, String> entry : headers) {
+            if ("nio".equals(entry.getKey())) {
+                httpGet.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
         httpclient.execute(httpGet, new FutureCallback<HttpResponse>() {
             @Override
             public void completed(final HttpResponse endpointResponse) {

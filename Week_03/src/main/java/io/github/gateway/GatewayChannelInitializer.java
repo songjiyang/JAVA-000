@@ -1,5 +1,6 @@
 package io.github.gateway;
 
+import io.github.gateway.inbound.HttpInboundFilterHandler;
 import io.github.gateway.inbound.HttpInboundHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -17,6 +18,7 @@ public class GatewayChannelInitializer extends ChannelInitializer<SocketChannel>
 		ChannelPipeline p = ch.pipeline();
 		p.addLast(new HttpServerCodec());
 		p.addLast(new HttpObjectAggregator(1024 * 1024));
+		p.addLast(new HttpInboundFilterHandler());
 		p.addLast(new HttpInboundHandler());
 	}
 }

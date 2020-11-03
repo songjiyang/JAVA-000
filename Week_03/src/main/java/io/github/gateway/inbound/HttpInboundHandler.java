@@ -2,6 +2,7 @@ package io.github.gateway.inbound;
 
 import io.github.gateway.upstream.UpstreamHandler;
 import io.github.gateway.upstream.httpclient4.HttpUpstreamHandler;
+import io.github.gateway.upstream.netty4.NettyUpstreamClient;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;

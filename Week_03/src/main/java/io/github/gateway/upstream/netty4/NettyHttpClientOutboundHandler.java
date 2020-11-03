@@ -1,4 +1,4 @@
-package io.github.gateway.outbound.netty4;
+package io.github.gateway.upstream.netty4;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

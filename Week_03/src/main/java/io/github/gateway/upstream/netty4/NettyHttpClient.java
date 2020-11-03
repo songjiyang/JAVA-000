@@ -1,4 +1,4 @@
-package io.github.gateway.outbound.netty4;//package io.github.kimmking.gateway.outbound;
+package io.github.gateway.upstream.netty4;//package io.github.kimmking.gateway.outbound;
 //
 //import io.netty.bootstrap.Bootstrap;
 //import io.netty.channel.ChannelFuture;

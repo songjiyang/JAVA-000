@@ -1,4 +1,4 @@
-package io.github.gateway.outbound.httpclient4;
+package io.github.gateway.upstream.httpclient4;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class NamedThreadFactory implements ThreadFactory {
     
     private final ThreadGroup group;
-    private final AtomicInteger threadNumber = new AtomicInteger(1);
+    private static final AtomicInteger threadNumber = new AtomicInteger(1);
     
     private final String namePrefix;
     private final boolean daemon;

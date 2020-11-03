@@ -1,1 +1,10 @@
 学习笔记
+
+
+通过参考老师的代码，很有启发式的学习了Netty如何使用，但还有觉得有些问题，所以对此改造, 如有问题，请助教老师多多指出。
+
+1. outbound在netty中的概念是一个出站行为，而我们的HttpOutboundHandler更像一个入站行为的处理方法，所以命名为outbound不合适，所以我将这部分命名为upstreamHandler(对应nginx)
+2. HttpInboundInitializer这个名看起来像初始化inbound的一些东西，但实际是用来初始化channel, 所以改成GatewayChannelInitializer
+3. HttpInboundServer也不是一个入站Server, 直接将代码放入NettyServerApplication
+4. 原HttpOutboundHandler中的proxyService和httpClient会造成内存泄露，所以改成static, 让所有实例共享一个线程池和连接池
+5. NamedThreadFactory的threadNumber变量设置为static的，所以实例共享一个变量，不然会存在相同的线程名称出现

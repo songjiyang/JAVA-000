@@ -1,20 +1,13 @@
-学习笔记
+package Week_04;
+
+import java.util.concurrent.*;
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.locks.ReentrantLock;
 
 
-
-
-#### 思考有多少种方式，在 main 函数启动一个新线程，运行一个方法，拿到这个方法的返回值后，退出主线程
-
-总的来说就是使用各种方式的资源共享，通过内存（堆内存，或者redis）， 磁盘（文件和数据库), 网络(socket) 共享那个需要传递的值, 然后协调线程之间的顺序，能准确让对应的线程拿到另外线程的值
-
-
-1. static变量共享，通过堆内存上的Class对象来共享， 需要通过CountDownLatch来协调主线程和子线程
-2. instance变量，通过堆内存上特定的对象来共享，需要通过CountDownLatch来协调主线程和子线程
-3. FutureTask, 通过堆内存上FutureTask实例来共享值，FutureTask内部来协调主线程和子线程, run开启子线程，get阻塞主线程并等待子线程
-4. executorService.submit，通过FutureTask来共享值，FutureTask内部来协调主线程和子线程, executorService提供了线程池功能
-5. static变量共享, 主线程自旋来等待值
-6. static变量共享, LockSupport来协调线程
-```
+/**
+ * @author songjiyang
+ */
 public class PassValueInThread {
 
     public static String message;
@@ -149,9 +142,3 @@ public class PassValueInThread {
     }
 
 }
-```
-
-
-#### 把多线程和并发相关知识带你梳理一遍，画一个脑图，截图上传到 Github 上
-
-![avatar](多线程和并发.png)

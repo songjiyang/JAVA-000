@@ -4,7 +4,7 @@
 
 ## 1、使用GCLogAnalysis.java 自己演练一遍串行/并行/CMS/G1的案例。
 ```
-java  -XX:+UseSerialGC -Xms512m  -Xmx512m -XX:+PrintGCDetails Week_02.test.GCLogAnalysis
+java  -XX:+UseSerialGC -Xms512m  -Xmx512m -XX:+PrintGCDetails Week_02.mybean.GCLogAnalysis
 正在执行...
 [GC (Allocation Failure) [DefNew: 139760K->17472K(157248K), 0.0298496 secs] 139760K->46625K(506816K), 0.0298850 secs] [Times: user=0.03 sys=0.01, real=0.03 secs]
 [GC (Allocation Failure) [DefNew: 157248K->17471K(157248K), 0.0582037 secs] 186401K->87681K(506816K), 0.0582400 secs] [Times: user=0.03 sys=0.02, real=0.06 secs]
@@ -30,7 +30,7 @@ Heap
   class space    used 297K, capacity 386K, committed 512K, reserved 1048576K
 
 
-java  -XX:+UseParallelGC -Xms512m  -Xmx512m -XX:+PrintGCDetails Week_02.test.GCLogAnalysis
+java  -XX:+UseParallelGC -Xms512m  -Xmx512m -XX:+PrintGCDetails Week_02.mybean.GCLogAnalysis
 正在执行...
 [GC (Allocation Failure) [PSYoungGen: 131584K->21491K(153088K)] 131584K->42913K(502784K), 0.0176083 secs] [Times: user=0.04 sys=0.07, real=0.02 secs]
 [GC (Allocation Failure) [PSYoungGen: 153072K->21490K(153088K)] 174494K->87969K(502784K), 0.0308104 secs] [Times: user=0.05 sys=0.12, real=0.03 secs]
@@ -74,7 +74,7 @@ Heap
   class space    used 297K, capacity 386K, committed 512K, reserved 1048576K
 
 
-java  -XX:+UseConcMarkSweepGC -Xms512m  -Xmx512m -XX:+PrintGCDetails Week_02.test.GCLogAnalysis
+java  -XX:+UseConcMarkSweepGC -Xms512m  -Xmx512m -XX:+PrintGCDetails Week_02.mybean.GCLogAnalysis
 正在执行...
 [GC (Allocation Failure) [ParNew: 139776K->17468K(157248K), 0.0189811 secs] 139776K->47365K(506816K), 0.0190254 secs] [Times: user=0.03 sys=0.08, real=0.02 secs]
 [GC (Allocation Failure) [ParNew: 157244K->17472K(157248K), 0.0300001 secs] 187141K->95511K(506816K), 0.0300685 secs] [Times: user=0.05 sys=0.09, real=0.03 secs]
@@ -132,7 +132,7 @@ Heap
   class space    used 297K, capacity 386K, committed 512K, reserved 1048576K
 
 
-java  -XX:+UseG1GC -Xms512m  -Xmx512m -XX:+PrintGC Week_02.test.GCLogAnalysis
+java  -XX:+UseG1GC -Xms512m  -Xmx512m -XX:+PrintGC Week_02.mybean.GCLogAnalysis
 正在执行...
 [GC pause (G1 Evacuation Pause) (young) 31M->9469K(512M), 0.0049687 secs]
 [GC pause (G1 Evacuation Pause) (young) 41M->22M(512M), 0.0136799 secs]
@@ -236,7 +236,7 @@ java -XX:+UseSerialGC -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSHOT.jar
 wrk -c 30 -t16 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    52.29ms  214.29ms   1.87s    93.78%
@@ -251,7 +251,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  34511.27
 Transfer/sec:      4.12MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency     4.04ms   31.47ms 499.75ms   98.22%
@@ -269,7 +269,7 @@ java -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSHOT.jar
 wrk -c 30 -t16 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    26.88ms  136.44ms   1.76s    95.31%
@@ -284,7 +284,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  32463.77
 Transfer/sec:      3.88MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    12.63ms   76.11ms   1.03s    96.72%
@@ -303,7 +303,7 @@ java -XX:+UseConcMarkSweepGC -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSH
 wrk -c 30 -t16 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    50.26ms  197.79ms   1.75s    93.38%
@@ -318,7 +318,7 @@ Requests/sec:  33164.78
 Transfer/sec:      3.96MB
 
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    17.07ms   86.33ms   1.05s    95.63%
@@ -337,7 +337,7 @@ Transfer/sec:      4.52MB
 java -XX:+UseG1GC -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSHOT.jar
 wrk -c 30 -t16 -d60s --latency http://localhost:8088/api/hello
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    34.20ms  155.24ms   1.67s    94.89%
@@ -351,7 +351,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  28815.48
 Transfer/sec:      3.44MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   16 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    31.06ms  129.69ms   1.37s    93.97%
@@ -375,7 +375,7 @@ java -XX:+UseSerialGC -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSHOT.jar
 wrk -c 30 -t4 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    46.77ms  184.99ms   1.69s    94.04%
@@ -390,7 +390,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  37349.01
 Transfer/sec:      4.46MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    41.46ms  152.93ms   1.32s    93.15%
@@ -408,7 +408,7 @@ java -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSHOT.jar
 wrk -c 30 -t4 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    23.87ms  106.66ms   1.09s    95.02%
@@ -422,7 +422,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  35409.21
 Transfer/sec:      4.23MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    54.81ms  190.06ms   1.74s    92.01%
@@ -441,7 +441,7 @@ java -XX:+UseConcMarkSweepGC -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSH
 wrk -c 30 -t4 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    47.39ms  193.33ms   1.58s    94.64%
@@ -456,7 +456,7 @@ Requests/sec:  36158.73
 Transfer/sec:      4.32MB
 
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    73.36ms  229.37ms   1.63s    91.51%
@@ -474,7 +474,7 @@ Transfer/sec:      4.96MB
 java -XX:+UseG1GC -jar -Xms512m -Xmx512m  gateway-server-0.0.1-SNAPSHOT.jar
 wrk -c 30 -t4 -d60s --latency http://localhost:8088/api/hello
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    16.04ms   77.13ms 997.12ms   95.29%
@@ -488,7 +488,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  36806.69
 Transfer/sec:      4.39MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    28.56ms  105.71ms   1.13s    92.71%
@@ -509,7 +509,7 @@ java -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -jar -Xms512m -Xmx512m  gateway-server
 wrk -c 30 -t4 -d60s --latency http://localhost:8088/api/hello
 
 @1
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency    26.12ms  121.07ms   1.37s    95.55%
@@ -523,7 +523,7 @@ Running 1m test @ http://localhost:8088/api/hello
 Requests/sec:  31661.53
 Transfer/sec:      3.78MB
 @2
-Running 1m test @ http://localhost:8088/api/hello
+Running 1m mybean @ http://localhost:8088/api/hello
   4 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency     7.61ms   42.24ms 535.14ms   96.33%

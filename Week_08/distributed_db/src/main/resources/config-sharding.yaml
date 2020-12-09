@@ -1,0 +1,72 @@
+schemaName: sharding_db
+
+dataSourceCommon:
+  username: root
+  password:
+  connectionTimeoutMilliseconds: 30000
+  idleTimeoutMilliseconds: 60000
+  maxLifetimeMilliseconds: 1800000
+  maxPoolSize: 50
+  minPoolSize: 1
+  maintenanceIntervalMilliseconds: 30000
+
+#
+dataSources:
+
+  ds0:
+    password: root
+    url: jdbc:mysql://localhost:3306/ds0
+    username: root
+  ds1:
+    password: root
+    url: jdbc:mysql://localhost:3306/ds1
+    username: root
+
+rules:
+  # 配置分片规则
+  - !SHARDING
+    tables:
+      # 配置 orders 表规则
+      orders:
+        actualDataNodes: ds${0..1}.orders${0..15}
+        # 配置分库策略
+        databaseStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: database_inline
+        # 配置分表策略
+        tableStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: table_inline
+      order_item:
+        actualDataNodes: ds${0..1}.order_item${0..15}
+        # 配置分库策略
+        databaseStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: database_inline
+        # 配置分表策略
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: item_table_inline
+
+    # 配置分片算法
+    shardingAlgorithms:
+      database_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds${user_id % 2}
+      table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: orders${id % 16}
+      item_table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: order_item${order_id % 16}
+    bindingTables:
+      - orders, order_item
+
+
